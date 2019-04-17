@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: splunk::params
+  
+    &mdash; Documentation by YARD 0.9.19
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::splunk::params";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (s)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">splunk::params</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: splunk::params</h1>
+<div class="box_info">
+  
+  
+  <dl>
+    <dt>Inherited by:</dt>
+    <dd>
+      
+      <span class='object_link'><a href="splunk.html" title="puppet_classes::splunk (puppet_class)">splunk</a></span><br/>
+      
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/params.pp
+    </dd>
+  </dl>
+</div>
+
+  <h2>Summary</h2>
+  This class takes a small number of arguments (can be set through Hiera) and
+generates sane default values installation media names and locations.
+Default ports can also be specified here. This is a parameters class, and
+contributes no resources to the graph. Rather, it only sets values for
+parameters to be consumed by child classes.
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+  </div>
+</div>
+
+
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;7.2.4.2&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The version of Splunk to install. This will be in the form x.y.z; e.g.
+&quot;4.3.2&quot;.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>build</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;fb30470262e3&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Splunk packages are typically named based on the platform, architecture,
+version, and build. Puppet can determine the platform information
+automatically but a build number must be supplied in order to correctly
+construct the path to the packages. A build number will be six digits;
+e.g. &quot;123586&quot;.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>splunkd_port</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Port</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>8089</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The splunkd port.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>logging_port</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Port</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>9997</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The port on which to send logs, and listen for logs.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>server</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;splunk&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional fqdn or IP of the Splunk Enterprise server.  Used for setting up
+the default TCP output and input.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>splunk_user</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$facts[&#39;os&#39;][&#39;family&#39;]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The user that splunk runs as.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>src_root</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;https://download.splunk.com&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The root URL at which to find the splunk packages. The sane-default logic
+assumes that the packages are located under this URL in the same way that
+they are placed on download.splunk.com. The URL can be any protocol that
+the puppet/archive module supports. This includes both puppet:// and
+http://.  The expected directory structure is:</p>
+
+<pre class="code ruby"><code class="ruby">$root_url/
+└── products/
+    ├── universalforwarder/
+    │   └── releases/
+    |       └── $version/
+    |           └── $platform/
+    |               └── splunkforwarder-${version}-${build}-${additl}
+    └── splunk/
+        └── releases/
+            └── $version/
+                └── $platform/
+                    └── splunk-${version}-${build}-${additl}
+
+A semi-populated example src_root then contain:
+
+$root_url/
+└── products/
+    ├── universalforwarder/
+    │   └── releases/
+    |       └── 7.2.4.2/
+    |           ├── linux/
+    |           |   ├── splunkforwarder-7.2.4.2-fb30470262e3-linux-2.6-amd64.deb
+    |           |   ├── splunkforwarder-7.2.4.2-fb30470262e3-linux-2.6-intel.deb
+    |           |   └── splunkforwarder-7.2.4.2-fb30470262e3-linux-2.6-x86_64.rpm
+    |           ├── solaris/
+    |           └── windows/
+    |               └── splunkforwarder-7.2.4.2-fb30470262e3-x64-release.msi
+    └── splunk/
+        └── releases/
+            └── 7.2.4.2/
+                └── linux/
+                    ├── splunk-7.2.4.2-fb30470262e3-linux-2.6-amd64.deb
+                    ├── splunk-7.2.4.2-fb30470262e3-linux-2.6-intel.deb
+                    └── splunk-7.2.4.2-fb30470262e3-linux-2.6-x86_64.rpm
+</code></pre>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>boot_start</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Enable Splunk to start at boot, create a system service file.</p>
+
+<p>WARNING: Toggling boot_start <code>false</code> to <code>true</code> will cause a restart of
+Splunk Enterprise and Forwarder services.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>forwarder_installdir</span>
+      
+      
+        <span class='type'>(<tt>Optional[String[1]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional directory in which to install and manage Splunk Forwarder</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>enterprise_installdir</span>
+      
+      
+        <span class='type'>(<tt>Optional[String[1]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional directory in which to install and manage Splunk Enterprise</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 88</span>
+
+class splunk::params (
+  String[1] $version                         = &#39;7.2.4.2&#39;,
+  String[1] $build                           = &#39;fb30470262e3&#39;,
+  String[1] $src_root                        = &#39;https://download.splunk.com&#39;,
+  Stdlib::Port $splunkd_port                 = 8089,
+  Stdlib::Port $logging_port                 = 9997,
+  String[1] $server                          = &#39;splunk&#39;,
+  Optional[String[1]] $forwarder_installdir  = undef,
+  Optional[String[1]] $enterprise_installdir = undef,
+  Boolean $boot_start                        = true,
+  String[1] $splunk_user                     = $facts[&#39;os&#39;][&#39;family&#39;] ? {
+    &#39;Windows&#39; =&gt; &#39;Administrator&#39;,
+    default =&gt; &#39;root&#39;
+  },
+) {
+
+  # Based on the small number of inputs above, we can construct sane defaults
+  # for pretty much everything else.
+
+  # To generate password_content, change the password on enterprise or
+  # forwarder, then distribute the contents of the splunk.secret and passwd
+  # files accross all nodes.
+  # By default the parameters provided are for admin/changeme password.
+  $manage_password  = false
+  $secret           = &#39;hhy9DOGqli4.aZWCuGvz8stcqT2/OSJUZuyWHKc4wnJtQ6IZu2bfjeElgYmGHN9RWIT3zs5hRJcX1wGerpMNObWhFue78jZMALs3c3Mzc6CzM98/yGYdfcvWMo1HRdKn82LVeBJI5dNznlZWfzg6xdywWbeUVQZcOZtODi10hdxSJ4I3wmCv0nmkSWMVOEKHxti6QLgjfuj/MOoh8.2pM0/CqF5u6ORAzqFZ8Qf3c27uVEahy7ShxSv2K4K41z&#39;
+  $password_content = &#39;:admin:$6$pIE/xAyP9mvBaewv$4GYFxC0SqonT6/x8qGcZXVCRLUVKODj9drDjdu/JJQ/Iw0Gg.aTkFzCjNAbaK4zcCHbphFz1g1HK18Z2bI92M0::Administrator:admin:changeme@example.com::&#39;
+
+  if $::osfamily == &#39;Windows&#39; {
+    $staging_dir        = &quot;${facts[&#39;archive_windir&#39;]}\\splunk&quot;
+    $enterprise_homedir = pick($enterprise_installdir, &#39;C:/Program Files/Splunk&#39;)
+    $forwarder_homedir  = pick($forwarder_installdir, &#39;C:\\Program Files\\SplunkUniversalForwarder&#39;)
+  } else {
+    $staging_dir        = &#39;/opt/staging/splunk&#39;
+    $enterprise_homedir = pick($enterprise_installdir, &#39;/opt/splunk&#39;)
+    $forwarder_homedir  = pick($forwarder_installdir, &#39;/opt/splunkforwarder&#39;)
+  }
+
+  # Settings common to a kernel
+  case $::kernel {
+    &#39;Linux&#39;: {
+      $path_delimiter                      = &#39;/&#39;
+      $forwarder_src_subdir                = &#39;linux&#39;
+      $forwarder_password_config_file      = &quot;${forwarder_homedir}/etc/passwd&quot;
+      $enterprise_password_config_file     = &quot;${enterprise_homedir}/etc/passwd&quot;
+      $forwarder_secret_file               = &quot;${forwarder_homedir}/etc/splunk.secret&quot;
+      $enterprise_secret_file              = &quot;${enterprise_homedir}/etc/splunk.secret&quot;
+      $forwarder_confdir                   = &quot;${forwarder_homedir}/etc&quot;
+      $enterprise_src_subdir               = &#39;linux&#39;
+      $enterprise_confdir                  = &quot;${enterprise_homedir}/etc&quot;
+      $forwarder_install_options           = []
+      $enterprise_install_options           = []
+      # Systemd not supported until Splunk 7.2.2
+      if $facts[&#39;service_provider&#39;] == &#39;systemd&#39; and versioncmp($version, &#39;7.2.2&#39;) &gt;= 0 {
+        $enterprise_service      = &#39;Splunkd&#39;
+        $forwarder_service       = &#39;SplunkForwarder&#39;
+        $enterprise_service_file = &#39;/etc/systemd/system/multi-user.target.wants/Splunkd.service&#39;
+        $forwarder_service_file  = &#39;/etc/systemd/system/multi-user.target.wants/SplunkForwarder.service&#39;
+      }
+      else {
+        $enterprise_service      = &#39;splunk&#39;
+        $forwarder_service       = &#39;splunk&#39;
+        $enterprise_service_file = &#39;/etc/init.d/splunk&#39;
+        $forwarder_service_file  = &#39;/etc/init.d/splunk&#39;
+      }
+    }
+    &#39;SunOS&#39;: {
+      $path_delimiter        = &#39;/&#39;
+      $forwarder_src_subdir  = &#39;solaris&#39;
+      $password_config_file  = &quot;${forwarder_homedir}/etc/passwd&quot;
+      $secret_file           = &quot;${forwarder_homedir}/etc/splunk.secret&quot;
+      $forwarder_confdir     = &quot;${forwarder_homedir}/etc&quot;
+      $enterprise_src_subdir = &#39;solaris&#39;
+      $enterprise_confdir    = &quot;${enterprise_homedir}/etc&quot;
+      $forwarder_install_options = []
+      $enterprise_install_options = []
+      # Systemd not supported until Splunk 7.2.2
+      if $facts[&#39;service_provider&#39;] == &#39;systemd&#39; and versioncmp($version, &#39;7.2.2&#39;) &gt;= 0 {
+        $enterprise_service      = &#39;Splunkd&#39;
+        $forwarder_service       = &#39;SplunkForwarder&#39;
+        $enterprise_service_file = &#39;/etc/systemd/system/multi-user.target.wants/Splunkd.service&#39;
+        $forwarder_service_file  = &#39;/etc/systemd/system/multi-user.target.wants/SplunkForwarder.service&#39;
+      }
+      else {
+        $enterprise_service      = &#39;splunk&#39;
+        $forwarder_service       = &#39;splunk&#39;
+        $enterprise_service_file = &#39;/etc/init.d/splunk&#39;
+        $forwarder_service_file  = &#39;/etc/init.d/splunk&#39;
+      }
+    }
+    &#39;Windows&#39;: {
+      $path_delimiter        = &#39;\\&#39;
+      $forwarder_src_subdir  = &#39;windows&#39;
+      $password_config_file  = &#39;C:/Program Files/SplunkUniversalForwarder/etc/passwd&#39;
+      $secret_file           =  &#39;C:/Program Files/SplunkUniversalForwarder/etc/splunk.secret&#39;
+      $forwarder_service     = &#39;SplunkForwarder&#39; # UNKNOWN
+      $forwarder_confdir     = &quot;${forwarder_homedir}/etc&quot;
+      $enterprise_src_subdir = &#39;windows&#39;
+      $enterprise_service    = &#39;splunkd&#39; # UNKNOWN
+      $enterprise_confdir    = &quot;${enterprise_homedir}/etc&quot;
+      $forwarder_install_options = [
+        &#39;AGREETOLICENSE=Yes&#39;,
+        &#39;LAUNCHSPLUNK=0&#39;,
+        &#39;SERVICESTARTTYPE=auto&#39;,
+        &#39;WINEVENTLOG_APP_ENABLE=1&#39;,
+        &#39;WINEVENTLOG_SEC_ENABLE=1&#39;,
+        &#39;WINEVENTLOG_SYS_ENABLE=1&#39;,
+        &#39;WINEVENTLOG_FWD_ENABLE=1&#39;,
+        &#39;WINEVENTLOG_SET_ENABLE=1&#39;,
+        &#39;ENABLEADMON=1&#39;,
+        { &#39;INSTALLDIR&#39; =&gt; $forwarder_homedir },
+      ]
+      $enterprise_install_options = [
+        &#39;LAUNCHSPLUNK=1&#39;,
+        &#39;WINEVENTLOG_APP_ENABLE=1&#39;,
+        &#39;WINEVENTLOG_SEC_ENABLE=1&#39;,
+        &#39;WINEVENTLOG_SYS_ENABLE=1&#39;,
+        &#39;WINEVENTLOG_FWD_ENABLE=1&#39;,
+        &#39;WINEVENTLOG_SET_ENABLE=1&#39;,
+      ]
+    }
+    default: { fail(&quot;splunk module does not support kernel ${::kernel}&quot;) }
+  }
+  # default splunk agent settings in a hash so that the cya be easily parsed to other classes
+
+  $forwarder_output = {
+    &#39;tcpout_defaultgroup&#39;          =&gt; {
+      section                      =&gt; &#39;default&#39;,
+      setting                      =&gt; &#39;defaultGroup&#39;,
+      value                        =&gt; &quot;${server}_${logging_port}&quot;,
+      tag                          =&gt; &#39;splunk_forwarder&#39;,
+    },
+    &#39;defaultgroup_server&#39; =&gt; {
+      section             =&gt; &quot;tcpout:${server}_${logging_port}&quot;,
+      setting             =&gt; &#39;server&#39;,
+      value               =&gt; &quot;${server}:${logging_port}&quot;,
+      tag                 =&gt; &#39;splunk_forwarder&#39;,
+    },
+  }
+  $forwarder_input = {
+    &#39;default_host&#39; =&gt; {
+      section      =&gt; &#39;default&#39;,
+      setting      =&gt; &#39;host&#39;,
+      value        =&gt; $::clientcert,
+      tag          =&gt; &#39;splunk_forwarder&#39;,
+    },
+  }
+  # Settings common to an OS family
+  case $::osfamily {
+    &#39;RedHat&#39;:  { $package_provider = &#39;rpm&#39;  }
+    &#39;Debian&#39;:  { $package_provider = &#39;dpkg&#39; }
+    &#39;Solaris&#39;: { $package_provider = &#39;sun&#39;  }
+    default:   { $package_provider = undef  } # Don&#39;t define a $package_provider
+  }
+
+  # Settings specific to an architecture as well as an OS family
+  case &quot;${::osfamily} ${::architecture}&quot; {
+    &#39;RedHat i386&#39;: {
+      $package_suffix          = &quot;${version}-${build}.i386.rpm&quot;
+      $forwarder_package_name  = &#39;splunkforwarder&#39;
+      $enterprise_package_name = &#39;splunk&#39;
+    }
+    &#39;RedHat x86_64&#39;: {
+      $package_suffix          = &quot;${version}-${build}-linux-2.6-x86_64.rpm&quot;
+      $forwarder_package_name  = &#39;splunkforwarder&#39;
+      $enterprise_package_name = &#39;splunk&#39;
+    }
+    &#39;Debian i386&#39;: {
+      $package_suffix          = &quot;${version}-${build}-linux-2.6-intel.deb&quot;
+      $forwarder_package_name  = &#39;splunkforwarder&#39;
+      $enterprise_package_name = &#39;splunk&#39;
+    }
+    &#39;Debian amd64&#39;: {
+      $package_suffix          = &quot;${version}-${build}-linux-2.6-amd64.deb&quot;
+      $forwarder_package_name  = &#39;splunkforwarder&#39;
+      $enterprise_package_name = &#39;splunk&#39;
+    }
+    /^(W|w)indows (x86|i386)$/: {
+      $package_suffix          = &quot;${version}-${build}-x86-release.msi&quot;
+      $forwarder_package_name  = &#39;UniversalForwarder&#39;
+      $enterprise_package_name = &#39;Splunk&#39;
+    }
+    /^(W|w)indows (x64|x86_64)$/: {
+      $package_suffix          = &quot;${version}-${build}-x64-release.msi&quot;
+      $forwarder_package_name  = &#39;UniversalForwarder&#39;
+      $enterprise_package_name = &#39;Splunk&#39;
+    }
+    &#39;Solaris i86pc&#39;: {
+      $package_suffix          = &quot;${version}-${build}-solaris-10-intel.pkg&quot;
+      $forwarder_package_name  = &#39;splunkforwarder&#39;
+      $enterprise_package_name = &#39;splunk&#39;
+    }
+    &#39;Solaris sun4v&#39;: {
+      $package_suffix          = &quot;${version}-${build}-solaris-8-sparc.pkg&quot;
+      $forwarder_package_name  = &#39;splunkforwarder&#39;
+      $enterprise_package_name = &#39;splunk&#39;
+    }
+    default: { fail(&quot;unsupported osfamily/arch ${::osfamily}/${::architecture}&quot;) }
+  }
+
+  $forwarder_src_package  = &quot;splunkforwarder-${package_suffix}&quot;
+  $enterprise_src_package = &quot;splunk-${package_suffix}&quot;
+
+  $enterprise_package_ensure = &#39;installed&#39;
+  $enterprise_package_src    = &quot;${src_root}/products/splunk/releases/${version}/${enterprise_src_subdir}/${enterprise_src_package}&quot;
+  $forwarder_package_ensure = &#39;installed&#39;
+  $forwarder_package_src = &quot;${src_root}/products/universalforwarder/releases/${version}/${forwarder_src_subdir}/${forwarder_src_package}&quot;
+
+
+  # A meta resource so providers know where splunk is installed:
+  splunk_config { &#39;splunk&#39;:
+    forwarder_installdir =&gt; $forwarder_homedir,
+    forwarder_confdir    =&gt; $forwarder_confdir,
+    server_installdir    =&gt; $enterprise_homedir,
+    server_confdir       =&gt; $enterprise_confdir,
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

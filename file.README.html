@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.19
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1>Puppet Module For Splunk</h1>
+
+<p><a href="https://travis-ci.org/voxpupuli/puppet-splunk"><img src="https://travis-ci.org/voxpupuli/puppet-splunk.png?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/voxpupuli/puppet-splunk"><img src="https://coveralls.io/repos/github/voxpupuli/puppet-splunk/badge.svg?branch=master" alt="Code Coverage"></a>
+<a href="https://forge.puppetlabs.com/puppet/splunk"><img src="https://img.shields.io/puppetforge/v/puppet/splunk.svg" alt="Puppet Forge"></a>
+<a href="https://forge.puppetlabs.com/puppet/splunk"><img src="https://img.shields.io/puppetforge/dt/puppet/splunk.svg" alt="Puppet Forge - downloads"></a>
+<a href="https://forge.puppetlabs.com/puppet/splunk"><img src="https://img.shields.io/puppetforge/e/puppet/splunk.svg" alt="Puppet Forge - endorsement"></a>
+<a href="https://forge.puppetlabs.com/puppet/splunk"><img src="https://img.shields.io/puppetforge/f/puppet/splunk.svg" alt="Puppet Forge - scores"></a></p>
+
+<h4>Table of Contents</h4>
+
+<ol>
+<li><a href="#label-Overview">Overview</a></li>
+<li><a href="#label-Module+description">Module Description - What the module does and why it is useful</a></li>
+<li><a href="#label-Setup">Setup - The basics of getting started with splunk</a>
+
+<ul>
+<li><a href="#label-What+splunk+affects">What splunk affects</a></li>
+<li><a href="#label-Setup+requirements">Setup requirements</a></li>
+<li><a href="#label-Beginning+with+splunk">Beginning with splunk</a></li>
+</ul></li>
+<li><a href="#label-Usage">Usage - Configuration options and additional functionality</a>
+
+<ul>
+<li><a href="#label-Upgrade+splunksplunkforwarder+packages">Upgrade splunk/splunkforwarder packages</a>
+
+<ul>
+<li><a href="#label-Upgrade+example">Upgrade Example</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#label-Reference">Reference - An under-the-hood peek at what the module is doing and how</a></li>
+<li><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></li>
+<li><a href="#label-Development">Development - Guide for contributing to the module</a></li>
+</ol>
+
+<h2>Overview</h2>
+
+<p>This module provides a method to deploy Splunk Enterprise or Splunk Universal
+Forwarder with common configurations and ensure the services maintain a running
+state. It provides types/providers to interact with the various
+Splunk/Forwarder configuration files.</p>
+
+<h2>Module Description</h2>
+
+<p>This module does not configure firewall rules. Firewall rules will need to be
+configured separately in order to allow for correct operation of Splunk and the
+Splunk Universal Forwarder. Additionally, this module does not supply Splunk or
+Splunk Universal Forwarder installation media. Installation media will need to
+be aquired seperately, and the module configured to use it. Users can use yum
+or apt to install these components if they&#39;re self-hosted.</p>
+
+<h2>Setup</h2>
+
+<h3>What splunk affects</h3>
+
+<ul>
+<li>Installs the Splunk/Forwarder package and manages their config files. It does
+not purge them by default.</li>
+<li>The module will set up both Splunk Enterprise and Splunk Forwarder to run as
+the &#39;root&#39; user on POSIX platforms.</li>
+<li>By default, enables Splunk Enterprise and Splunk Forwarder boot-start, and
+uses the vendor-generated service file to manage the splunk service.</li>
+</ul>
+
+<h3>Setup Requirements</h3>
+
+<p>To begin using this module, use the Puppet Module Tool (PMT) from the command
+line to install this module:</p>
+
+<p><code>puppet module install puppet-splunk</code></p>
+
+<p>This will place the module into your primary module path if you do not utilize
+the --target-dir directive.</p>
+
+<p>You can also use r10k or code-manager to deploy the module so ensure that you
+have the correct entry in your Puppetfile.</p>
+
+<p>Once the module is in place, there is just a little setup needed.</p>
+
+<p>First, you will need to place your downloaded splunk installers into the files
+directory, <code>&lt;module_path&gt;/splunk/files/</code>. If you&#39;re using r10k or code-manager
+you&#39;ll need to override the <code>splunk::params::src_root</code> parameter to point at a
+modulepath outside of the Splunk module because each deploy will overwrite the
+files.</p>
+
+<p>The files must be placed according to directory structure example given below.</p>
+
+<p>The expected directory structure is:</p>
+
+<pre class="code ruby"><code class="ruby"> $root_url/
+ └── products/
+     ├── universalforwarder/
+     │   └── releases/
+     |       └── $version/
+     |           └── $platform/
+     |               └── splunkforwarder-${version}-${build}-${additl}
+     └── splunk/
+         └── releases/
+             └── $version/
+                 └── $platform/
+                     └── splunk-${version}-${build}-${additl}
+</code></pre>
+
+<p>A semi-populated example files directory might then contain:</p>
+
+<pre class="code ruby"><code class="ruby">$root_url/
+└── products/
+    ├── universalforwarder/
+    │   └── releases/
+    |       └── 7.0.0/
+    |           ├── linux/
+    |           |   ├── splunkforwarder-7.0.0-c8a78efdd40f-linux-2.6-amd64.deb
+    |           |   ├── splunkforwarder-7.0.0-c8a78efdd40f-linux-2.6-intel.deb
+    |           |   └── splunkforwarder-7.0.0-c8a78efdd40f-linux-2.6-x86_64.rpm
+    |           ├── solaris/
+    |           └── windows/
+    |               └── splunkforwarder-7.0.0-c8a78efdd40f-x64-release.msi
+    └── splunk/
+        └── releases/
+            └── 7.0.0/
+                └── linux/
+                    ├── splunk-7.0.0-c8a78efdd40f-linux-2.6-amd64.deb
+                    ├── splunk-7.0.0-c8a78efdd40f-linux-2.6-intel.deb
+                    └── splunk-7.0.0-c8a78efdd40f-linux-2.6-x86_64.rpm
+</code></pre>
+
+<p>Second, you will need to supply the <code>splunk::params</code> class with three critical
+pieces of information.</p>
+
+<ul>
+<li>The version of Splunk you are using</li>
+<li>The build of Splunk you are using</li>
+<li>The root URL to use to retrieve the packages</li>
+</ul>
+
+<p>In the example given above, the version is 7.0.0, the build is c8a78efdd40f,
+and the root URL is puppet:///modules/splunk. See the splunk::params class
+documentation for more information.</p>
+
+<h3>Beginning with splunk</h3>
+
+<p>Once the Splunk packages are hosted in the users repository or hosted by the
+Puppet Server in the modulepath the module is ready to deploy.</p>
+
+<h2>Usage</h2>
+
+<p>If a user is installing Splunk Enterprise with packages provided from their
+modulepath, this is the most basic way of installing Splunk Server with default
+settings:</p>
+
+<pre class="code puppet"><code class="puppet">include ::splunk::enterprise
+</code></pre>
+
+<p>This is the most basic way of installing the Splunk Universal Forwarder with
+default settings:</p>
+
+<pre class="code puppet"><code class="puppet">class { &#39;::splunk::params&#39;:
+    server =&gt; $my_splunk_server,
+}
+
+include ::splunk::forwarder
+</code></pre>
+
+<p>Once both Splunk Enterprise and Splunk Universal Forwarder have been deployed
+on their respective nodes, the Forwarder is ready to start sending logs.</p>
+
+<p>In order to start sending some log data, users can take advantage of the
+<code>Splunkforwarder_input</code> type. Here is a basic example of adding an input to
+start sending Puppet Server logs:</p>
+
+<pre class="code puppet"><code class="puppet">@splunkforwarder_input { &#39;puppetserver-sourcetype&#39;:
+  section =&gt; &#39;monitor:///var/log/puppetlabs/puppetserver/puppetserver.log&#39;,
+  setting =&gt; &#39;sourcetype&#39;,
+  value   =&gt; &#39;puppetserver&#39;,
+  tag     =&gt; &#39;splunk_forwarder&#39;
+}
+</code></pre>
+
+<p>This virtual resource will get collected by the <code>::splunk::forwarder</code> class if
+it is tagged with <code>splunk_forwarder</code> and will add the appropriate setting to
+the inputs.conf file and refresh the service.</p>
+
+<h3>Upgrade splunk and splunkforwarder packages</h3>
+
+<p>This module has the ability to install <em>and</em> upgrade the splunk and splunkforwarder packages. All you have to do is declare <code>package_ensure =&gt; &#39;latest&#39;</code> when calling the <code>::splunk</code> or <code>::splunk::forwarder</code> classes.</p>
+
+<p>Upgrades from 7.0.X to &gt;= 7.0.X are not tested.</p>
+
+<h4>Upgrade Example</h4>
+
+<p>The following code will install the 6.6.8 version of the splunk forwarder. Then
+comment out the 6.6.8 version and build values and uncomment the 7.1.2 version
+and build values. Running puppet again will perform the following:</p>
+
+<ol>
+<li>splunk forwarder package is upgraded
+
+<ol>
+<li>splunk service is stopped as part of the package upgrade process</li>
+</ol></li>
+<li>new license agreement is automatically accepted
+
+<ol>
+<li>license agreement must be accepted or the splunk service will fail to start</li>
+</ol></li>
+<li>splunk service is started</li>
+</ol>
+
+<pre class="code puppet"><code class="puppet"># Tell the module to get packages directly from Splunk.
+class { &#39;::splunk::params&#39;:
+  version  =&gt; &#39;6.6.8&#39;,
+  build    =&gt; &#39;6c27a8439c1e&#39;,
+  #version  =&gt; &#39;7.1.2&#39;,
+  #build    =&gt; &#39;a0c72a66db66&#39;,
+  src_root =&gt; &#39;https://download.splunk.com&#39;,
+}
+
+# Specifying package_ensure =&gt; &#39;latest&#39; will ensure that the splunk and
+# splunkforwarder packages will be upgraded when you specify newer values for
+# version and build.
+class { &#39;::splunk::forwarder&#39;:
+  package_ensure =&gt; &#39;latest&#39;,
+}
+</code></pre>
+
+<h2>Reference</h2>
+
+<h3>Types</h3>
+
+<ul>
+<li><p><code>splunk_config</code>: This is a meta resource used to configure defaults for all the
+splunkforwarder and splunk types. This type should not be declared directly as
+it is declared in <code>splunk::params</code> and used internally by the types and providers.</p></li>
+<li><p><code>splunk_authentication</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Authenticationconf">authentication.conf</a></p></li>
+<li><p><code>splunk_authorize</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Authenticationconf">authorize.conf</a></p></li>
+<li><p><code>splunk_deploymentclient</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Deploymentclientconf">deploymentclient.conf</a></p></li>
+<li><p><code>splunk_distsearch</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Distsearchconf">distsearch.conf</a></p></li>
+<li><p><code>splunk_indexes</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Indexesconf">indexes.conf</a></p></li>
+<li><p><code>splunk_input</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Inputsconf">inputs.conf</a></p></li>
+<li><p><code>splunk_limits</code>: Used to mange ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Limitsconf">limits.conf</a></p></li>
+<li><p><code>splunk_metadata</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Defaultmetaconf">default.meta</a></p></li>
+<li><p><code>splunk_output</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Outputsconf">outputs.conf</a></p></li>
+<li><p><code>splunk_props</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Propsconf">props.conf</a></p></li>
+<li><p><code>splunk_server</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Serverconf">server.conf</a></p></li>
+<li><p><code>splunk_serverclass</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Serverclassconf">serverclass.conf</a></p></li>
+<li><p><code>splunk_transforms</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Transformsconf">transforms.conf</a></p></li>
+<li><p><code>splunk_web</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Webconf">web.conf</a></p></li>
+<li><p><code>splunkforwarder_deploymentclient</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Deploymentclientconf">deploymentclient.conf</a></p></li>
+<li><p><code>splunkforwarder_input</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Inputsconf">inputs.conf</a></p></li>
+<li><p><code>splunkforwarder_output</code>:Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Outputsconf">outputs.conf</a></p></li>
+<li><p><code>splunkforwarder_props</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Propsconf">props.conf</a></p></li>
+<li><p><code>splunkforwarder_transforms</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Transformsconf">transforms.conf</a></p></li>
+<li><p><code>splunkforwarder_web</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Webconf">web.conf</a></p></li>
+<li><p><code>splunkforwarder_limits</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Limitsconf">limits.conf</a></p></li>
+<li><p><code>splunkforwarder_server</code>: Used to manage ini settings in <a href="http://docs.splunk.com/Documentation/Splunk/latest/Admin/Serverconf">server.conf</a></p></li>
+</ul>
+
+<p>All of the above types use <code>puppetlabs/ini_file</code> as a parent and are declared in
+an identical way, and accept the following parameters:</p>
+
+<ul>
+<li><code>section</code>:  The name of the section in the configuration file</li>
+<li><code>setting</code>:  The setting to be managed</li>
+<li><code>value</code>: The value of the setting</li>
+</ul>
+
+<p>Both section and setting are namevars for the types.  Specifying a single string
+as the title without a forward slash implies that the title is the section to be
+managed (if the section attribute is not defined).  You can also specify the
+resource title as <code>section/setting</code> and ommit both <code>section</code> and <code>setting</code> params
+for a more shortform way of declaring the resource.   Eg:</p>
+
+<pre class="code puppet"><code class="puppet">splunkforwarder_output { &#39;useless title&#39;:
+  section =&gt; &#39;default&#39;,
+  setting =&gt; &#39;defaultGroup&#39;,
+  value   =&gt; &#39;splunk_9777&#39;,
+}
+
+splunkforwarder_output { &#39;default&#39;:
+  setting =&gt; &#39;defaultGroup&#39;,
+  value   =&gt; &#39;splunk_9777&#39;,
+}
+
+splunkforwarder_output { &#39;default/defaultGroup&#39;:
+  value   =&gt; &#39;splunk_9777&#39;,
+}
+</code></pre>
+
+<p>The above resource declarations will all configure the following entry in <code>outputs.conf</code></p>
+
+<pre class="code ruby"><code class="ruby"><span class='lbracket'>[</span><span class='id identifier rubyid_default'>default</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_defaultGroup'>defaultGroup</span><span class='op'>=</span><span class='id identifier rubyid_splunk_9997'>splunk_9997</span>
+</code></pre>
+
+<p>Note: if the section contains forward slashes you should not use it as the resource
+title and should explicitly declare it with the <code>section</code> attribute.</p>
+
+<h2>Parameters</h2>
+
+<h3>Class: ::splunk::params</h3>
+
+<h4><code>version</code></h4>
+
+<p><em>Optional</em> Specifies the version of Splunk Enterprise and Splunk Forwarder that
+the module should install.</p>
+
+<h4><code>build</code></h4>
+
+<p><em>Optional</em> Specifies the build of Splunk Enterprise that the module should use.</p>
+
+<h4><code>src_root</code></h4>
+
+<p><em>Optional</em> The root path that the staging module will use to find packages for
+splunk and splunk::forwarder.</p>
+
+<h4><code>splunkd_port</code></h4>
+
+<p><em>Optional</em> The splunkd port. Used as a default for both splunk and splunk::forwarder.</p>
+
+<h4><code>logging_port</code></h4>
+
+<p><em>Optional</em> The port on which to send and listen for logs. Used as a default for
+both splunk and splunk::forwarder.</p>
+
+<h4><code>server</code></h4>
+
+<p><em>Optional</em> The fqdn or IP address of the Splunk server. Used for setting up the
+default TCP output and input.</p>
+
+<h4><code>forwarder_installdir</code></h4>
+
+<p><em>Optional</em> Directory in which to install and manage Splunk Forwarder</p>
+
+<h4><code>enterprise_installdir</code></h4>
+
+<p><em>Optional</em> Directory in which to install and mange Splunk Enterprise</p>
+
+<h4><code>boot_start</code></h4>
+
+<p><em>Optional</em> Enable splunk boot-start mode.  Provision a service file.</p>
+
+<h3>Class: ::splunk::enterprise Parameters</h3>
+
+<h4><code>version</code></h4>
+
+<p>Specifies the version of Splunk Enterprise the module should install and
+manage.  Defaults to the value set in splunk::params.</p>
+
+<h4><code>package_name</code></h4>
+
+<p>The name of the package(s) Puppet will use to install Splunk.</p>
+
+<h4><code>package_ensure</code></h4>
+
+<p>Ensure parameter which will get passed to the Splunk package resource.
+Defaults to the value in splunk::params.</p>
+
+<h4><code>staging_dir</code></h4>
+
+<p>Root of the archive path to host the Splunk package.  Defaults to the value in
+splunk::params.</p>
+
+<h4><code>enterprise_package_src</code></h4>
+
+<p>The source URL for the splunk installation media (typically an RPM, MSI,
+etc). If a <code>$src_root</code> parameter is set in splunk::params, this will be
+automatically supplied. Otherwise it is required. The URL can be of any
+protocol supported by the nanliu/staging module. On Windows, this can be
+a UNC path to the MSI. Defaults to the value in splunk::params.</p>
+
+<h4><code>package_provider</code></h4>
+
+<p>The package management system used to host the Splunk packages.  Defaults to the
+value in splunk::params.</p>
+
+<h4><code>manage_package_source</code></h4>
+
+<p>Whether or not to use the supplied <code>enterprise_package_src</code> param.  Defaults to
+true.</p>
+
+<h4><code>package_source</code></h4>
+
+<p><em>Optional</em> The source URL for the splunk installation media (typically an RPM,
+MSI, etc). If <code>enterprise_package_src</code> parameter is set in splunk::params and
+<code>manage_package_source</code> is true, this will be automatically supplied. Otherwise
+it is required. The URL can be of any protocol supported by the nanliu/staging
+module. On Windows, this can be a UNC path to the MSI.  Defaults to undef.</p>
+
+<h4><code>install_options</code></h4>
+
+<p>This variable is passed to the package resources&#39; <em>install_options</em> parameter.
+Defaults to the value in ::splunk::params.</p>
+
+<h4><code>splunk_user</code></h4>
+
+<p>The user to run Splunk as. Defaults to the value set in splunk::params.</p>
+
+<h4><code>enterprise_homedir</code></h4>
+
+<p>Specifies the Splunk Enterprise home directory.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>enterprise_confdir</code></h4>
+
+<p>Specifies the Splunk Enterprise configuration directory.  Defaults to the value
+set in splunk::params.</p>
+
+<h4><code>service_name</code></h4>
+
+<p>The name of the Splunk Enterprise service.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>service_file</code></h4>
+
+<p>The path to the Splunk Enterprise service file.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>boot_start</code></h4>
+
+<p>Whether or not to enable splunk boot-start, which generates a service file to
+manage the Splunk Enterprise service.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>use_default_config</code></h4>
+
+<p>Whether or not the module should manage a default set of Splunk Enterprise
+configuration parameters.  Defaults to true.</p>
+
+<h4><code>input_default_host</code></h4>
+
+<p>Part of the default config.  Sets the <code>splunk_input</code> default host.  Defaults to
+<code>facts[&#39;fqdn&#39;]</code>.</p>
+
+<h4><code>input_connection_host</code></h4>
+
+<p>Part of the default config.  Sets the <code>splunk_input</code> connection host.  Defaults
+to dns.</p>
+
+<h4><code>splunkd_listen</code></h4>
+
+<p>The address on which splunkd should listen. Defaults to 127.0.0.1.</p>
+
+<h4><code>logging_port</code></h4>
+
+<p>The port to receive TCP logs on. Defaults to the port specified in
+splunk::params.</p>
+
+<h4><code>splunkd_port</code></h4>
+
+<p>The management port for Splunk. Defaults to the value set in splunk::params.</p>
+
+<h4><code>web_port</code></h4>
+
+<p>The port on which to service the Splunk Web interface. Defaults to 8000.</p>
+
+<h4><code>purge_inputs</code></h4>
+
+<p>If set to true, inputs.conf will be purged of configuration that is
+no longer managed by the <code>splunk_input</code> type. Defaults to false.</p>
+
+<h4><code>purge_outputs</code></h4>
+
+<p>If set to true, outputs.conf will be purged of configuration that is
+no longer managed by the <code>splunk_output</code> type. Defaults to false.</p>
+
+<h4><code>purge_authentication</code></h4>
+
+<p>If set to true, authentication.conf will be purged of configuration
+that is no longer managed by the <code>splunk_authentication</code> type. Defaults to false.</p>
+
+<h4><code>purge_authorize</code></h4>
+
+<p>If set to true, authorize.conf will be purged of configuration that
+is no longer managed by the <code>splunk_authorize</code> type. Defaults to false.</p>
+
+<h4><code>purge_distsearch</code></h4>
+
+<p>If set to true, distsearch.conf will be purged of configuration that
+is no longer managed by the <code>splunk_distsearch</code> type. Defaults to false.</p>
+
+<h4><code>purge_indexes</code></h4>
+
+<p>If set to true, indexes.conf will be purged of configuration that is
+no longer managed by the <code>splunk_indexes</code> type. Defaults to false.</p>
+
+<h4><code>purge_limits</code></h4>
+
+<p>If set to true, limits.conf will be purged of configuration that is
+no longer managed by the <code>splunk_limits</code> type. Defaults to false.</p>
+
+<h4><code>purge_props</code></h4>
+
+<p>If set to true, props.conf will be purged of configuration that is
+no longer managed by the <code>splunk_props</code> type. Defaults to false.</p>
+
+<h4><code>purge_server</code></h4>
+
+<p>If set to true, server.conf will be purged of configuration that is
+no longer managed by the <code>splunk_server</code> type. Defaults to false.</p>
+
+<h4><code>purge_transforms</code></h4>
+
+<p>If set to true, transforms.conf will be purged of configuration that
+is no longer managed by the <code>splunk_transforms</code> type. Defaults to false.</p>
+
+<h4><code>purge_web</code></h4>
+
+<p>If set to true, web.conf will be purged of configuration that is no
+longer managed by the <code>splunk_web type</code>. Defaults to false.</p>
+
+<h4><code>manage_password</code></h4>
+
+<p>If set to true, Manage the contents of splunk.secret and passwd.  Defaults to
+the value set in splunk::params.</p>
+
+<h4><code>password_config_file</code></h4>
+
+<p>Which file to put the password in i.e. in linux it would be
+/opt/splunk/etc/passwd.  Defaults to the value set in splunk::params.</p>
+
+<h4><code>password_content</code></h4>
+
+<p>The hashed password username/details for the user.  Defaults to the value set
+in splunk::params.</p>
+
+<h4><code>secret_file</code></h4>
+
+<p>Which file we should put the secret in.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>secret</code></h4>
+
+<p>The secret used to salt the splunk password.  Defaults to the value set in
+splunk::params.</p>
+
+<h3>Class ::splunk::forwarder Parameters</h3>
+
+<h4><code>server</code></h4>
+
+<p>The fqdn or IP address of the Splunk server. Defaults to the value in ::splunk::params.</p>
+
+<h4><code>version</code></h4>
+
+<p>Specifies the version of Splunk Forwarder the module should install and
+manage.  Defaults to the value set in splunk::params.</p>
+
+<h4><code>package_name</code></h4>
+
+<p>The name of the package(s) Puppet will use to install Splunk Forwarder.
+Defaults to the value set in splunk::params.</p>
+
+<h4><code>package_ensure</code></h4>
+
+<p>Ensure parameter which will get passed to the Splunk package resource.
+Defaults to the value in ::splunk::params.</p>
+
+<h4><code>staging_subdir</code></h4>
+
+<p>Root of the archive path to host the Splunk package.  Defaults to the value in
+splunk::params.</p>
+
+<h4><code>path_delimiter</code></h4>
+
+<p>The path separator used in the archived path of the Splunk package.  Defaults to
+the value in splunk::params.</p>
+
+<h4><code>forwarder_package_src</code></h4>
+
+<p>The source URL for the splunk installation media (typically an RPM, MSI,
+etc). If a <code>$src_root</code> parameter is set in splunk::params, this will be
+automatically supplied. Otherwise it is required. The URL can be of any
+protocol supported by the nanliu/staging module. On Windows, this can be
+a UNC path to the MSI. Defaults to the value in splunk::params.</p>
+
+<h4><code>package_provider</code></h4>
+
+<p>The package management system used to host the Splunk packages.  Defaults to the
+value in splunk::params.</p>
+
+<h4><code>manage_package_source</code></h4>
+
+<p>Whether or not to use the supplied <code>forwarder_package_src</code> param.  Defaults to
+true.</p>
+
+<h4><code>package_source</code></h4>
+
+<p><em>Optional</em> The source URL for the splunk installation media (typically an RPM,
+MSI, etc). If <code>enterprise_package_src</code> parameter is set in splunk::params and
+<code>manage_package_source</code> is true, this will be automatically supplied. Otherwise
+it is required. The URL can be of any protocol supported by the nanliu/staging
+module. On Windows, this can be a UNC path to the MSI.  Defaults to undef.</p>
+
+<h4><code>install_options</code></h4>
+
+<p>This variable is passed to the package resources&#39; <em>install_options</em> parameter.
+Defaults to the value in ::splunk::params.</p>
+
+<h4><code>splunk_user</code></h4>
+
+<p>The user to run Splunk as. Defaults to the value set in splunk::params.</p>
+
+<h4><code>forwarder_homedir</code></h4>
+
+<p>Specifies the Splunk Forwarder home directory.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>forwarder_confdir</code></h4>
+
+<p>Specifies the Splunk Forwarder configuration directory.  Defaults to the value
+set in splunk::params.</p>
+
+<h4><code>service_name</code></h4>
+
+<p>The name of the Splunk Forwarder service.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>service_file</code></h4>
+
+<p>The path to the Splunk Forwarder service file.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>boot_start</code></h4>
+
+<p>Whether or not to enable splunk boot-start, which generates a service file to
+manage the Splunk Forwarder service.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>use_default_config</code></h4>
+
+<p>Whether or not the module should manage a default set of Splunk Forwarder
+configuration parameters.  Defaults to true.</p>
+
+<h4><code>splunkd_listen</code></h4>
+
+<p>The address on which splunkd should listen. Defaults to 127.0.0.1.</p>
+
+<h4><code>splunkd_port</code></h4>
+
+<p>The management port for Splunk. Defaults to the value set in splunk::params.</p>
+
+<h4><code>logging_port</code></h4>
+
+<p>The port on which to send and listen for logs. Defaults to the value
+in splunk::params.</p>
+
+<h4><code>purge_inputs</code></h4>
+
+<p><em>Optional</em> If set to true, inputs.conf will be purged of configuration that is
+no longer managed by the <code>splunkforwarder_input</code> type. Defaults to false.</p>
+
+<h4><code>purge_outputs</code></h4>
+
+<p><em>Optional</em> If set to true, outputs.conf will be purged of configuration that is
+no longer managed by the <code>splunk_output</code> type. Defaults to false.</p>
+
+<h4><code>purge_props</code></h4>
+
+<p><em>Optional</em> If set to true, props.conf will be purged of configuration that is
+no longer managed by the <code>splunk_props</code> type. Defaults to false.</p>
+
+<h4><code>purge_transforms</code></h4>
+
+<p><em>Optional</em> If set to true, transforms.conf will be purged of configuration that is
+no longer managed by the <code>splunk_transforms</code> type. Defaults to false.</p>
+
+<h4><code>purge_web</code></h4>
+
+<p><em>Optional</em> If set to true, web.conf will be purged of configuration that is
+no longer managed by the <code>splunk_web</code> type. Defaults to false.</p>
+
+<h4><code>forwarder_input</code></h4>
+
+<p>Used to override the default <code>forwarder_input</code> type defined in splunk::params.</p>
+
+<h4><code>forwarder_output</code></h4>
+
+<p>Used to override the default <code>forwarder_output</code> type defined in splunk::params.</p>
+
+<h4><code>manage_password</code></h4>
+
+<p>If set to true, Manage the contents of splunk.secret and passwd.  Defaults to
+the value set in splunk::params.</p>
+
+<h4><code>password_config_file</code></h4>
+
+<p>Which file to put the password in i.e. in linux it would be
+/opt/splunkforwarder/etc/passwd.  Defaults to the value set in splunk::params.</p>
+
+<h4><code>password_content</code></h4>
+
+<p>The hashed password username/details for the user.  Defaults to the value set
+in splunk::params.</p>
+
+<h4><code>secret_file</code></h4>
+
+<p>Which file we should put the secret in.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>secret</code></h4>
+
+<p>The secret used to salt the splunk password.  Defaults to the value set in
+splunk::params.</p>
+
+<h4><code>addons</code></h4>
+
+<p>Manage splunk addons, see <code>splunk::addons</code>.  Defaults to an empty Hash.</p>
+
+<h2>Limitations</h2>
+
+<ul>
+<li>Currently tested manually on Centos 7, but we will eventually add automated
+testing and are targeting compatibility with other platforms.</li>
+<li>Tested with Puppet 5.x</li>
+<li>New installations of splunk up to version 7.2.X are supported, but upgrades
+from  7.0.X to &gt;= 7.0.X are not fully tested</li>
+<li>Enabling boot-start will fail if the unit file already exists.  Splunk does
+not remove unit files during uninstallation, so you may be required to
+manually remove existing unit files before re installing and enabling
+boot-start.</li>
+</ul>
+
+<h2>Development</h2>
+
+<p>TBD</p>
+
+<h2>Release Notes/Contributors/Etc</h2>
+
+<p>TBD</p>
+</div></div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

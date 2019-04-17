@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: splunk::forwarder
+  
+    &mdash; Documentation by YARD 0.9.19
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::splunk::forwarder";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (s)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">splunk::forwarder</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: splunk::forwarder</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd><span class='object_link'><a href="splunk.html" title="puppet_classes::splunk (puppet_class)">splunk</a></span></dd>
+  </dl>
+  
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/forwarder.pp
+    </dd>
+  </dl>
+</div>
+
+  <h2>Summary</h2>
+  Install and configure an instance of Splunk Universal Forwarder
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+  </div>
+</div>
+
+
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'><p>Basic usage</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_splunk'>splunk</span><span class='op'>::</span><span class='id identifier rubyid_forwarder'>forwarder</span></code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Install specific version and build with admin passord management</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;splunk::params&#39;:
+  version =&gt; &#39;7.2.5&#39;,
+  build   =&gt; &#39;088f49762779&#39;,
+}
+class { &#39;splunk::forwarder&#39;:
+  package_ensure =&gt; latest,
+  manage_password =&gt; true,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>server</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::server</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The fqdn or IP address of the Splunk server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version`</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Specifies the version of Splunk Forwarder the module should install and
+manage.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_name</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_package_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The name of the package(s) Puppet will use to install Splunk Forwarder.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_ensure</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_package_ensure</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Ensure parameter which will get passed to the Splunk package resource.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>staging_dir</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::staging_dir</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Root of the archive path to host the Splunk package.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>path_delimiter</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::path_delimiter</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The path separator used in the archived path of the Splunk package.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>forwarder_package_src</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_package_src</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The source URL for the splunk installation media (typically an RPM, MSI,
+etc). If a <code>$src_root</code> parameter is set in splunk::params, this will be
+automatically supplied. Otherwise it is required. The URL can be of any
+protocol supported by the puppet/archive module. On Windows, this can be
+a UNC path to the MSI.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_provider</span>
+      
+      
+        <span class='type'>(<tt>Optional[String[1]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::package_provider</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The package management system used to host the Splunk packages.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_package_source</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether or not to use the supplied <code>forwarder_package_src</code> param.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_source</span>
+      
+      
+        <span class='type'>(<tt>Optional[String[1]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p><em>Optional</em> The source URL for the splunk installation media (typically an RPM,
+MSI, etc). If <code>enterprise_package_src</code> parameter is set in splunk::params and
+<code>manage_package_source</code> is true, this will be automatically supplied. Otherwise
+it is required. The URL can be of any protocol supported by the puppet/archive
+module. On Windows, this can be a UNC path to the MSI.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>install_options</span>
+      
+      
+        <span class='type'>(<tt>Array[String[1]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_install_options</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>This variable is passed to the package resources&#39; <em>install_options</em> parameter.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>splunk_user</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::splunk_user</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The user to run Splunk as.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>forwarder_homedir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_homedir</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Specifies the Splunk Forwarder home directory.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>forwarder_confdir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_confdir</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Specifies the Splunk Forwarder configuration directory.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_name</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_service</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The name of the Splunk Forwarder service.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_file</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_service_file</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The path to the Splunk Forwarder service file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>boot_start</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::boot_start</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether or not to enable splunk boot-start, which generates a service file to
+manage the Splunk Forwarder service.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>use_default_config</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether or not the module should manage a default set of Splunk Forwarder
+configuration parameters.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>splunkd_listen</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::IP::Address</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;127.0.0.1&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The address on which splunkd should listen.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>splunkd_port</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Port</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::splunkd_port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The management port for Splunk.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>logging_port</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Port</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::logging_port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The port on which to send and listen for logs.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>purge_inputs</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p><em>Optional</em> If set to true, inputs.conf will be purged of configuration that is
+no longer managed by the <code>splunkforwarder_input</code> type.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>purge_outputs</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p><em>Optional</em> If set to true, outputs.conf will be purged of configuration that is
+no longer managed by the <code>splunk_output</code> type.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>purge_props</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p><em>Optional</em> If set to true, props.conf will be purged of configuration that is
+no longer managed by the <code>splunk_props</code> type.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>purge_transforms</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p><em>Optional</em> If set to true, transforms.conf will be purged of configuration that is
+no longer managed by the <code>splunk_transforms</code> type.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>purge_web</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p><em>Optional</em> If set to true, web.conf will be purged of configuration that is
+no longer managed by the <code>splunk_web</code> type.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>forwarder_input</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_input</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Used to override the default <code>forwarder_input</code> type defined in splunk::params.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>forwarder_output</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_output</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Used to override the default <code>forwarder_output</code> type defined in splunk::params.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_password</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::manage_password</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>If set to true, Manage the contents of splunk.secret and passwd.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>password_config_file</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_password_config_file</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Which file to put the password in i.e. in linux it would be
+<code>/opt/splunkforwarder/etc/passwd</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>password_content</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::password_content</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The hashed password username/details for the user.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>secret_file</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::forwarder_secret_file</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Which file we should put the secret in.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>secret</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::secret</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The secret used to salt the splunk password.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>addons</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Manage a splunk addons, see <code>splunk::addons</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>String[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$splunk::params::version</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>purge_deploymentclient</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/forwarder.pp', line 136</span>
+
+class splunk::forwarder(
+  String[1] $server                          = $splunk::params::server,
+  String[1] $version                         = $splunk::params::version,
+  String[1] $package_name                    = $splunk::params::forwarder_package_name,
+  String[1] $package_ensure                  = $splunk::params::forwarder_package_ensure,
+  String[1] $staging_dir                     = $splunk::params::staging_dir,
+  String[1] $path_delimiter                  = $splunk::params::path_delimiter,
+  String[1] $forwarder_package_src           = $splunk::params::forwarder_package_src,
+  Optional[String[1]] $package_provider      = $splunk::params::package_provider,
+  Boolean $manage_package_source             = true,
+  Optional[String[1]] $package_source        = undef,
+  Array[String[1]] $install_options          = $splunk::params::forwarder_install_options,
+  String[1] $splunk_user                     = $splunk::params::splunk_user,
+  Stdlib::Absolutepath $forwarder_homedir    = $splunk::params::forwarder_homedir,
+  Stdlib::Absolutepath $forwarder_confdir    = $splunk::params::forwarder_confdir,
+  String[1] $service_name                    = $splunk::params::forwarder_service,
+  Stdlib::Absolutepath $service_file         = $splunk::params::forwarder_service_file,
+  Boolean $boot_start                        = $splunk::params::boot_start,
+  Boolean $use_default_config                = true,
+  Stdlib::IP::Address $splunkd_listen        = &#39;127.0.0.1&#39;,
+  Stdlib::Port $splunkd_port                 = $splunk::params::splunkd_port,
+  Stdlib::Port $logging_port                 = $splunk::params::logging_port,
+  Boolean $purge_deploymentclient            = false,
+  Boolean $purge_outputs                     = false,
+  Boolean $purge_inputs                      = false,
+  Boolean $purge_props                       = false,
+  Boolean $purge_transforms                  = false,
+  Boolean $purge_web                         = false,
+  Hash $forwarder_output                     = $splunk::params::forwarder_output,
+  Hash $forwarder_input                      = $splunk::params::forwarder_input,
+  Boolean $manage_password                   = $splunk::params::manage_password,
+  Stdlib::Absolutepath $password_config_file = $splunk::params::forwarder_password_config_file,
+  String[1] $password_content                = $splunk::params::password_content,
+  Stdlib::Absolutepath $secret_file          = $splunk::params::forwarder_secret_file,
+  String[1] $secret                          = $splunk::params::secret,
+  Hash $addons                               = {},
+) inherits splunk {
+
+  if (defined(Class[&#39;splunk::enterprise&#39;])) {
+    fail(&#39;Splunk Universal Forwarder provides a subset of Splunk Enterprise capabilities, and has potentially conflicting resources when included with Splunk Enterprise on the same node.  Do not include splunk::forwarder on the same node as splunk::enterprise.  Configure Splunk Enterprise to meet your forwarding needs.&#39;
+    )
+  }
+
+  contain &#39;splunk::forwarder::install&#39;
+  contain &#39;splunk::forwarder::config&#39;
+  contain &#39;splunk::forwarder::service&#39;
+
+  Class[&#39;splunk::forwarder::install&#39;]
+  -&gt; Class[&#39;splunk::forwarder::config&#39;]
+  ~&gt; Class[&#39;splunk::forwarder::service&#39;]
+
+  Splunk_config[&#39;splunk&#39;] {
+    forwarder_confdir                =&gt; $forwarder_confdir,
+    purge_forwarder_deploymentclient =&gt; $purge_deploymentclient,
+    purge_forwarder_outputs          =&gt; $purge_outputs,
+    purge_forwarder_inputs           =&gt; $purge_inputs,
+    purge_forwarder_props            =&gt; $purge_props,
+    purge_forwarder_transforms       =&gt; $purge_transforms,
+    purge_forwarder_web              =&gt; $purge_web,
+  }
+
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>
