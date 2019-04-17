@@ -237,10 +237,11 @@ http://.  The expected directory structure is:</p>
             └── $version/
                 └── $platform/
                     └── splunk-${version}-${build}-${additl}
+</code></pre>
 
-A semi-populated example src_root then contain:
+<p>A semi-populated example of <code>src_root</code> contains:</p>
 
-$root_url/
+<pre class="code ruby"><code class="ruby">$root_url/
 └── products/
     ├── universalforwarder/
     │   └── releases/
@@ -328,7 +329,6 @@ Splunk Enterprise and Forwarder services.</p>
         <pre class="lines">
 
 
-88
 89
 90
 91
@@ -543,10 +543,11 @@ Splunk Enterprise and Forwarder services.</p>
 300
 301
 302
-303</pre>
+303
+304</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 88</span>
+        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 89</span>
 
 class splunk::params (
   String[1] $version                         = &#39;7.2.4.2&#39;,
