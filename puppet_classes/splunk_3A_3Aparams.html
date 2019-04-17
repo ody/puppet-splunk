@@ -223,7 +223,9 @@ the default TCP output and input.</p>
 assumes that the packages are located under this URL in the same way that
 they are placed on download.splunk.com. The URL can be any protocol that
 the puppet/archive module supports. This includes both puppet:// and
-http://.  The expected directory structure is:</p>
+http://.</p>
+
+<p>The expected directory structure is:</p>
 
 <pre class="code ruby"><code class="ruby">$root_url/
 └── products/
@@ -329,9 +331,6 @@ Splunk Enterprise and Forwarder services.</p>
         <pre class="lines">
 
 
-89
-90
-91
 92
 93
 94
@@ -544,10 +543,13 @@ Splunk Enterprise and Forwarder services.</p>
 301
 302
 303
-304</pre>
+304
+305
+306
+307</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 89</span>
+        <pre class="code"><span class="info file"># File 'manifests/params.pp', line 92</span>
 
 class splunk::params (
   String[1] $version                         = &#39;7.2.4.2&#39;,
