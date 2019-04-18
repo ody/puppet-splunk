@@ -71,11 +71,14 @@
   </dl>
 </div>
 
+  <h2>Summary</h2>
+  Private class declared by Class[splunk::enterprise] to contain all the
+configuration needed for a base install of Splunk Enterprise
+
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
-    <p>Class splunk::enterprise::config</p>
-
+    
   </div>
 </div>
 
@@ -90,8 +93,6 @@
         <pre class="lines">
 
 
-3
-4
 5
 6
 7
@@ -192,13 +193,13 @@
 102
 103
 104
-105</pre>
+105
+106</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/enterprise/config.pp', line 3</span>
+        <pre class="code"><span class="info file"># File 'manifests/enterprise/config.pp', line 5</span>
 
-class splunk::enterprise::config(
-){
+class splunk::enterprise::config() {
 
   if $splunk::enterprise::manage_password {
     file { $splunk::enterprise::password_config_file:
