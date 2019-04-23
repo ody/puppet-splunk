@@ -65,14 +65,16 @@ define splunk::addon (
   if $package_manage {
     if $splunkbase_source {
       $archive_name = $splunkbase_source.split('/')[-1]
+      file { "${_splunk_home}/etc/apps/${name}": ensure => directory }
       archive { $name:
-        path         => "${splunk::params::staging_dir}/${archive_name}",
-        source       => $splunkbase_source,
-        extract      => true,
-        extract_path => "${_splunk_home}/etc/apps",
-        creates      => "${_splunk_home}/etc/apps/${name}",
-        cleanup      => true,
-        before       => File["${_splunk_home}/etc/apps/${name}/local"],
+        path          => "${splunk::params::staging_dir}/${archive_name}",
+        source        => $splunkbase_source,
+        extract       => true,
+        extract_path  => "${_splunk_home}/etc/apps/${name}",
+        creates       => "${_splunk_home}/etc/apps/${name}/app.manifest",
+        cleanup       => true,
+        extract_flags => '--strip-components 1 -xf',
+        before        => File["${_splunk_home}/etc/apps/${name}/local"],
       }
     } else {
       package { $package_name:
